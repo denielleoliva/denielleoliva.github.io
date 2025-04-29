@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>denielleo portfolio</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>denielle oliva</h1>
+    </header>
+
+    <!-- Button to open the "Publications" pane -->
+    <div class="pane-button-container publications-button">
+      <button
+        class="pane-button"
+        onclick="togglePane('publications-pane')"
+      ></button>
+      <span class="pane-button-label">Publications</span>
+    </div>
+
+    <!-- Pane for "Publications" -->
+    <div
+      id="publications-pane"
+      class="pane"
+      style="left: calc(50vw - 400px); top: calc(50vh - 280px); display: none; width: 800px; height: 600px;"
+    >
+      <div class="title">
+        <h2>Publications</h2>
+        <!-- Exit button -->
+        <button class="exit-button" onclick="closePane('publications-pane')"></button>
+      </div>
+
+      <div class="content">
+        <div class="publication">
+          <a href="https://arxiv.org/abs/2504.08117" target="_blank">
+            <strong>Design Activity for Robot Faces: Evaluating Child Responses to Expressive Faces</strong>
+          </a>
+          <p class="abstract">
+            This paper explores how children respond to expressive robot faces through a design activity.
+          </p>
+          <a href="/pdfs/robot-faces.pdf" target="_blank">[PDF]</a>
+        </div>
+
+        <div class="publication">
+          <a href="https://arxiv.org/abs/2504.16055" target="_blank">
+            <strong>SAR4SLPs: An Asynchronous Survey of Speech-Language Pathologists' Perspectives on Socially Assistive Robots</strong>
+          </a>
+          <p class="abstract">
+            This study surveys speech-language pathologists to understand their perspectives on socially assistive robots.
+          </p>
+          <a href="/pdfs/sar4slps.pdf" target="_blank">[PDF]</a>
+        </div>
+      </div>
+
+      <div class="corner"></div>
+    </div>
+
+    <!-- Button to open the "Skills" pane -->
+    <div class="pane-button-container skills-button">
+      <button
+        class="pane-button"
+        onclick="togglePane('skills-pane')"
+      ></button>
+      <span class="pane-button-label">Skills</span>
+    </div>
+
+    <!-- Pane for "Skills" -->
+    <div
+      id="skills-pane"
+      class="pane"
+      style="left: calc(50vw - 400px); top: calc(50vh - 280px); display: none; width: 800px; height: 600px;"
+    >
+      <div class="title">
+        <h2>Skills</h2>
+        <!-- Exit button -->
+        <button class="exit-button" onclick="closePane('skills-pane')">X</button>
+      </div>
+
+      <div class="content">
+        <ul>
+          <li>Programming Languages: Python, JavaScript, C++</li>
+          <li>Data Analysis: Pandas, NumPy</li>
+          <li>Robotics and Automated Systems: ROS, ROS2, Manipulators, Mobile Robots</li>
+          <li>Web Development: HTML, CSS, React</li>
+          <li>Machine Learning: TensorFlow, PyTorch</li>
+          <li>Version Control: Git, GitHub</li>
+        </ul>
+      </div>
+
+      <div class="corner"></div>
+    </div>
+
+    <div class="bottom-bar">
+      <button class="menu-button" onclick="toggleMenu()">Start</button>
+      <div id="menu" class="menu" style="display: none;">
+        <ul>
+          <li onclick="togglePane('publications-pane')">Publications</li>
+          <li onclick="togglePane('skills-pane')">Skills</li>
+        </ul>
+      </div>
+      <div id="clock" class="clock"></div>
+    </div>
+
+    <script src="panes.js"></script>
+  </body>
+</html>

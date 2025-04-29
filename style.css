@@ -1,0 +1,396 @@
+/* load google font */
+@font-face {
+  font-family: 'Xanh Mono';
+  src: url(XanhMono-Regular.ttf);
+}
+
+/* reset defaults */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* css variables */
+:root {
+  --desktop-color: #A6CFD5;
+  --desktop-text-color: #ffffff;
+
+  --title-bar-color: #cccccc;
+  --title-bar-text-color: #333333;
+  --title-bar-highlight-color: #aaaaaa;
+  --title-bar-height: 32px;
+
+  --pane-content-background-color: #ffffff;
+
+  --pane-default-width: 320px;
+  --pane-default-height: 360px;
+  --pane-border-radius: 8px;
+}
+
+body {
+  font-family: 'Xanh Mono', monospace;
+  background: var(--desktop-color);
+
+  /* if outside of the window, clip */
+  height: 100vh;
+  overflow: clip;
+
+  /* Apply a retro crosshair cursor globally */
+  cursor: url('/images/icons8-hand-cursor-48.png'), pointer;
+}
+
+h1 {
+  color: var(--desktop-text-color);
+  padding: 32px;
+  font-size: 1.5rem;
+}
+
+/* Center the header title in the middle of the screen */
+header {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+/* Default pane size (desktop) */
+.pane {
+  position: absolute;
+  width: 70%; /* Scale width to 70% of the viewport */
+  height: 70%; /* Scale height to 70% of the viewport */
+  left: 15%; /* Center horizontally */
+  top: 15%; /* Center vertically */
+
+  display: grid;
+  grid-template-rows: var(--title-bar-height) 1fr;
+
+  border-radius: var(--pane-border-radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+
+  overflow: hidden; /* Ensure no content overflows */
+  background-color: var(--pane-content-background-color); /* Set the entire pane to white */
+
+  min-width: 200px; /* Ensure a minimum width */
+  min-height: 200px; /* Ensure a minimum height */
+}
+
+/* Remove fixed dimensions for specific panes */
+#publications-pane,
+#skills-pane {
+  width: auto; /* Let the default .pane styles handle the size */
+  height: auto;
+}
+
+/* Style for the exit button */
+.exit-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  line-height: 25px;
+}
+
+.exit-button:hover {
+  background-color: darkred;
+}
+
+/* Style for the pane button with a folder icon */
+.pane-button {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background: url('images/icons8-folder-64.png') no-repeat center center;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+}
+
+.pane-button:hover {
+  filter: brightness(1.2); /* Slightly brighten the icon on hover */
+}
+
+/* Container for the pane button and label */
+.pane-button-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Style for the label below the folder icon */
+.pane-button-label {
+  margin-top: 50px;
+  font-size: 0.9rem;
+  color: var(--desktop-text-color);
+  font-family: 'Xanh Mono', monospace;
+}
+
+.pane .title {
+  cursor: move;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--title-bar-color);
+  color: var(--title-bar-text-color);
+}
+
+.pane h2 {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.pane .content {
+  padding: 16px;
+  background-color: var(--pane-content-background-color); /* Ensure content area matches pane background */
+  overflow-y: auto;
+}
+
+/* Style for links inside the pane */
+.pane .content a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.pane .content a:hover {
+  text-decoration: underline;
+}
+
+/* Style for individual publications */
+.publication {
+  margin-bottom: 24px; /* Add space between publications */
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+/* Style for publication links */
+.publication a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.publication a:hover {
+  text-decoration: underline;
+}
+
+/* Style for abstracts */
+.publication .abstract {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+/* make image fill the space */
+.pane .content img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+
+  object-fit: cover;
+
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+/* add a corner in bottom right */
+.pane .corner {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 24px;
+  height: 24px;
+
+  /* north west to south east */
+  cursor: nwse-resize;
+
+  /* background-color: red; */
+}
+
+.pane.is-dragging .title {
+  background-color: var(--title-bar-highlight-color);
+}
+
+/* Optional: Customize specific elements if needed */
+.pane-button,
+.exit-button {
+  cursor: url('/images/icons8-hand-cursor-48.png'), pointer;
+}
+
+/* Position the "Publications" button */
+.publications-button {
+  position: absolute;
+  left: 20px;
+  top: 100px;
+}
+
+/* Position the "Skills" button */
+.skills-button {
+  position: absolute;
+  left: 42px;
+  top: 180px;
+}
+
+/* Bottom bar */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background-color: #c0c0c0;
+  border-top: 2px solid #ffffff;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #808080;
+  border-bottom: 2px solid #808080;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+/* Menu button */
+.menu-button {
+  background-color: #c0c0c0;
+  border: 2px solid #808080;
+  color: black;
+  font-family: 'Xanh Mono', monospace;
+  font-size: 14px;
+  padding: 4px 12px;
+  cursor: pointer;
+  box-shadow: inset -1px -1px 0 #ffffff, inset 1px 1px 0 #808080;
+}
+
+.menu-button:hover {
+  background-color: #ffffff;
+}
+
+/* Dropdown menu */
+.menu {
+  position: absolute;
+  bottom: 40px;
+  left: 8px;
+  background-color: #c0c0c0;
+  border: 2px solid #808080;
+  box-shadow: 2px 2px 0 #ffffff, -2px -2px 0 #808080;
+  font-family: 'Xanh Mono', monospace;
+  font-size: 14px;
+  z-index: 1001;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+}
+
+.menu li {
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.menu li:hover {
+  background-color: #ffffff;
+}
+
+/* Clock on the right-hand side of the bottom bar */
+.clock {
+  margin-left: auto;
+  margin-right: 8px;
+  font-family: 'Xanh Mono', monospace;
+  font-size: 14px;
+  color: black;
+  background-color: #c0c0c0;
+  padding: 4px 8px;
+  border: 2px solid #808080;
+  box-shadow: inset -1px -1px 0 #ffffff, inset 1px 1px 0 #808080;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Adjust styles for mobile screens */
+@media (max-width: 768px) {
+  /* Center the header title for smaller screens */
+  header {
+    font-size: 1.2rem;
+    padding: 16px;
+  }
+
+  /* Resize and reposition the panes */
+  .pane {
+    width: 90%; /* Scale width to 90% of the viewport */
+    height: 80%; /* Scale height to 80% of the viewport */
+    left: 5%; /* Center horizontally */
+    top: 10%; /* Center vertically */
+  }
+
+  /* Adjust the bottom bar height */
+  .bottom-bar {
+    height: 50px;
+    padding: 0 4px;
+  }
+
+  /* Resize the menu button */
+  .menu-button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  /* Adjust the dropdown menu */
+  .menu {
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  .menu li {
+    padding: 4px 6px;
+  }
+
+  /* Resize the clock */
+  .clock {
+    font-size: 12px;
+    padding: 4px 6px;
+  }
+
+  /* Adjust the pane buttons */
+  .pane-button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pane-button-label {
+    font-size: 0.8rem;
+    margin-top: 42px; /* Further reduce the margin for smaller screens */
+  }
+
+  /* Reposition the pane buttons */
+  .publications-button {
+    left: 10px;
+    top: 80px;
+  }
+
+  .skills-button {
+    left: 28px;
+    top: 140px;
+  }
+}
