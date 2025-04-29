@@ -233,7 +233,7 @@ header {
 /* Optional: Customize specific elements if needed */
 .pane-button,
 .exit-button {
-  cursor: url('/images/icons8-hand-cursor-48.png'), pointer;
+  cursor:  pointer;
 }
 
 /* Position the "Publications" button */
