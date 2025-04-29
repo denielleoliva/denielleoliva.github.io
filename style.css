@@ -36,7 +36,7 @@ body {
   overflow: clip;
 
   /* Apply a retro crosshair cursor globally */
-  cursor: url('/images/icons8-hand-cursor-48.png'), pointer;
+  cursor:  pointer;
 }
 
 h1 {
