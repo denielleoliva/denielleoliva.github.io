@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel - Manage Publications</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        /* Login Screen */
+        .login-container {
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-container h1 {
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .login-form button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .error {
+            color: #e74c3c;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .admin-header h1 {
+            color: #333;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        /* Add Publication Form */
+        .add-form {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .add-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-primary {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Publications List */
+        .publications-list h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .publication-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+
+        .publication-item h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .publication-item p {
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .publication-item .links {
+            margin-bottom: 10px;
+        }
+
+        .publication-item .links a {
+            color: #667eea;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+
+        .publication-item .actions {
+            margin-top: 10px;
+        }
+
+        .btn-delete {
+            padding: 8px 16px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-delete:hover {
+            background: #c0392b;
+        }
+
+        .btn-edit {
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        .btn-edit:hover {
+            background: #2980b9;
+        }
+
+        .btn-export {
+            padding: 12px 24px;
+            background: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        .btn-export:hover {
+            background: #229954;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="login-screen" class="container login-container">
+        <h1>Admin Login</h1>
+        <form class="login-form" onsubmit="login(event)">
+            <input type="password" id="password" placeholder="Enter password" required />
+            <button type="submit">Login</button>
+        </form>
+        <div id="login-error" class="error"></div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="container admin-panel">
+        <div class="admin-header">
+            <h1>Manage Publications</h1>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+
+        <!-- Add Publication Form -->
+        <div class="add-form">
+            <h2>Add New Publication</h2>
+            <form onsubmit="addPublication(event)">
+                <div class="form-group">
+                    <label>Title *</label>
+                    <input type="text" id="pub-title" required />
+                </div>
+                <div class="form-group">
+                    <label>Abstract</label>
+                    <textarea id="pub-abstract" placeholder="Brief description of the publication"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>ArXiv URL (optional)</label>
+                    <input type="url" id="pub-arxiv" placeholder="https://arxiv.org/abs/..." />
+                </div>
+                <div class="form-group">
+                    <label>PDF Path (optional)</label>
+                    <input type="text" id="pub-pdf" placeholder="/pdfs/filename.pdf" />
+                </div>
+                <button type="submit" class="btn-primary">Add Publication</button>
+            </form>
+        </div>
+
+        <!-- Publications List -->
+        <div class="publications-list">
+            <h2>Your Publications</h2>
+            <div id="publications-container"></div>
+        </div>
+
+        <button class="btn-export" onclick="exportHTML()">Export HTML Code</button>
+    </div>
+
+    <script>
+        // CHANGE THIS PASSWORD
+        const ADMIN_PASSWORD = "root";
+        
+        let publications = [];
+        let editingIndex = -1;
+
+        // Load publications from localStorage
+        function loadPublications() {
+            const saved = localStorage.getItem('publications');
+            if (saved) {
+                publications = JSON.parse(saved);
+            }
+            renderPublications();
+        }
+
+        // Save publications to localStorage
+        function savePublications() {
+            localStorage.setItem('publications', JSON.stringify(publications));
+            renderPublications();
+        }
+
+        // Login
+        function login(event) {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('login-error');
+            
+            if (password === ADMIN_PASSWORD) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                sessionStorage.setItem('authenticated', 'true');
+                loadPublications();
+            } else {
+                errorDiv.textContent = 'Incorrect password';
+            }
+        }
+
+        // Logout
+        function logout() {
+            sessionStorage.removeItem('authenticated');
+            document.getElementById('admin-panel').style.display = 'none';
+            document.getElementById('login-screen').style.display = 'block';
+            document.getElementById('password').value = '';
+        }
+
+        // Check if already logged in
+        window.onload = function() {
+            if (sessionStorage.getItem('authenticated') === 'true') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                loadPublications();
+            }
+        };
+
+        // Add or Edit Publication
+        function addPublication(event) {
+            event.preventDefault();
+            
+            const pub = {
+                title: document.getElementById('pub-title').value,
+                abstract: document.getElementById('pub-abstract').value,
+                arxiv: document.getElementById('pub-arxiv').value,
+                pdf: document.getElementById('pub-pdf').value
+            };
+
+            if (editingIndex === -1) {
+                publications.push(pub);
+            } else {
+                publications[editingIndex] = pub;
+                editingIndex = -1;
+                document.querySelector('.add-form h2').textContent = 'Add New Publication';
+                document.querySelector('.add-form button[type="submit"]').textContent = 'Add Publication';
+            }
+
+            savePublications();
+            
+            // Clear form
+            document.getElementById('pub-title').value = '';
+            document.getElementById('pub-abstract').value = '';
+            document.getElementById('pub-arxiv').value = '';
+            document.getElementById('pub-pdf').value = '';
+        }
+
+        // Edit Publication
+        function editPublication(index) {
+            const pub = publications[index];
+            document.getElementById('pub-title').value = pub.title;
+            document.getElementById('pub-abstract').value = pub.abstract;
+            document.getElementById('pub-arxiv').value = pub.arxiv;
+            document.getElementById('pub-pdf').value = pub.pdf;
+            
+            editingIndex = index;
+            document.querySelector('.add-form h2').textContent = 'Edit Publication';
+            document.querySelector('.add-form button[type="submit"]').textContent = 'Update Publication';
+            
+            // Scroll to form
+            document.querySelector('.add-form').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Delete Publication
+        function deletePublication(index) {
+            if (confirm('Are you sure you want to delete this publication?')) {
+                publications.splice(index, 1);
+                savePublications();
+            }
+        }
+
+        // Render Publications
+        function renderPublications() {
+            const container = document.getElementById('publications-container');
+            
+            if (publications.length === 0) {
+                container.innerHTML = '<div class="empty-state">No publications yet. Add your first one above!</div>';
+                return;
+            }
+
+            container.innerHTML = publications.map((pub, index) => `
+                <div class="publication-item">
+                    <h3>${pub.title}</h3>
+                    ${pub.abstract ? `<p>${pub.abstract}</p>` : ''}
+                    <div class="links">
+                        ${pub.arxiv ? `<a href="${pub.arxiv}" target="_blank">ArXiv Link</a>` : ''}
+                        ${pub.pdf ? `<a href="${pub.pdf}" target="_blank">PDF</a>` : ''}
+                    </div>
+                    <div class="actions">
+                        <button class="btn-edit" onclick="editPublication(${index})">Edit</button>
+                        <button class="btn-delete" onclick="deletePublication(${index})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Export HTML Code
+        function exportHTML() {
+            let html = '';
+            
+            publications.forEach(pub => {
+                html += `        <div class="publication">\n`;
+                
+                if (pub.arxiv) {
+                    html += `          <a href="${pub.arxiv}" target="_blank">\n`;
+                    html += `            <strong>${pub.title}</strong>\n`;
+                    html += `          </a>\n`;
+                } else {
+                    html += `          <strong>${pub.title}</strong>\n`;
+                }
+                
+                if (pub.abstract) {
+                    html += `          <p class="abstract">\n`;
+                    html += `            ${pub.abstract}\n`;
+                    html += `          </p>\n`;
+                }
+                
+                if (pub.pdf) {
+                    html += `          <a href="${pub.pdf}" target="_blank">[PDF]</a>\n`;
+                }
+                
+                html += `        </div>\n`;
+            });
+
+            // Copy to clipboard
+            navigator.clipboard.writeText(html).then(() => {
+                alert('HTML code copied to clipboard! Paste it into the publications pane in your index.html');
+            }).catch(() => {
+                // Fallback: show in alert
+                prompt('Copy this HTML code:', html);
+            });
+        }
+    </script>
+</body>
+</html>

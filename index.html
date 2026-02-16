@@ -4,14 +4,12 @@
     <title>denielleo portfolio</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
       <h1>denielle oliva</h1>
     </header>
-
     <!-- Button to open the "Publications" pane -->
     <div class="pane-button-container publications-button">
       <button
@@ -20,7 +18,6 @@
       ></button>
       <span class="pane-button-label">Publications</span>
     </div>
-
     <!-- Pane for "Publications" -->
     <div
       id="publications-pane"
@@ -32,7 +29,6 @@
         <!-- Exit button -->
         <button class="exit-button" onclick="closePane('publications-pane')"></button>
       </div>
-
       <div class="content">
         <div class="publication">
           <a href="https://arxiv.org/abs/2504.08117" target="_blank">
@@ -43,7 +39,6 @@
           </p>
           <a href="/pdfs/robot-faces.pdf" target="_blank">[PDF]</a>
         </div>
-
         <div class="publication">
           <a href="https://arxiv.org/abs/2504.16055" target="_blank">
             <strong>SAR4SLPs: An Asynchronous Survey of Speech-Language Pathologists' Perspectives on Socially Assistive Robots</strong>
@@ -54,10 +49,8 @@
           <a href="/pdfs/sar4slps.pdf" target="_blank">[PDF]</a>
         </div>
       </div>
-
       <div class="corner"></div>
     </div>
-
     <!-- Button to open the "Skills" pane -->
     <div class="pane-button-container skills-button">
       <button
@@ -66,7 +59,6 @@
       ></button>
       <span class="pane-button-label">Skills</span>
     </div>
-
     <!-- Pane for "Skills" -->
     <div
       id="skills-pane"
@@ -78,7 +70,6 @@
         <!-- Exit button -->
         <button class="exit-button" onclick="closePane('skills-pane')">X</button>
       </div>
-
       <div class="content">
         <ul>
           <li>Programming Languages: Python, JavaScript, C++</li>
@@ -89,7 +80,44 @@
           <li>Version Control: Git, GitHub</li>
         </ul>
       </div>
+      <div class="corner"></div>
+    </div>
 
+    <!-- Button to open the "Face Rigging Studio" pane -->
+    <div class="pane-button-container studio-button">
+      <button
+        class="pane-button"
+        onclick="togglePane('studio-pane')"
+      ></button>
+      <span class="pane-button-label">Face Rigging Studio</span>
+    </div>
+    <!-- Pane for "Face Rigging Studio" -->
+    <div
+      id="studio-pane"
+      class="pane"
+      style="left: calc(50vw - 400px); top: calc(50vh - 280px); display: none; width: 800px; height: 600px;"
+    >
+      <div class="title">
+        <h2>Face Rigging Studio</h2>
+        <!-- Exit button -->
+        <button class="exit-button" onclick="closePane('studio-pane')">X</button>
+      </div>
+      <div class="content">
+        <p>Draw, rig, and animate faces with text-to-speech for socially assistive robotics research.</p>
+        <a href="https://YOUR_USERNAME.github.io/face-rigging-studio" target="_blank" class="studio-link">
+          <button class="launch-button">Launch Studio →</button>
+        </a>
+        <div style="margin-top: 20px;">
+          <h3>Features:</h3>
+          <ul>
+            <li>Vector drawing tools with customizable brush styles</li>
+            <li>26 detailed facial control points for precise rigging</li>
+            <li>Automatic landmark detection</li>
+            <li>Text-to-speech animation with mouth, eye, and eyebrow movement</li>
+            <li>Export animations as standalone HTML files</li>
+          </ul>
+        </div>
+      </div>
       <div class="corner"></div>
     </div>
 
@@ -99,11 +127,11 @@
         <ul>
           <li onclick="togglePane('publications-pane')">Publications</li>
           <li onclick="togglePane('skills-pane')">Skills</li>
+          <li onclick="togglePane('studio-pane')">Face Rigging Studio</li>
         </ul>
       </div>
       <div id="clock" class="clock"></div>
     </div>
-
     <script src="panes.js"></script>
   </body>
 </html>

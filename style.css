@@ -394,3 +394,33 @@ header {
     top: 140px;
   }
 }
+
+
+/* Position the studio button on the page */
+.studio-button {
+  position: absolute;
+  left: 60%;
+  top: 40%;
+}
+
+/* Style for the launch button */
+.launch-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.launch-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.studio-link {
+  text-decoration: none;
+}
