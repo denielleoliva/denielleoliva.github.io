@@ -1,137 +1,761 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>denielleo portfolio</title>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denielle Oliva - PhD Candidate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #FF6B35;
+            --text-dark: #1a1a1a;
+            --text-gray: #666;
+            --bg-light: #f8f9fa;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 24px;
+        }
+
+        .contact-email {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .menu-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 60px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 24px;
+            object-fit: cover;
+            border: 3px solid var(--border-color);
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 .name {
+            display: inline;
+        }
+
+        .hero .role {
+            font-size: 56px;
+            font-weight: 800;
+            color: var(--text-gray);
+        }
+
+        .hero .institution {
+            font-size: 56px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-color), #ff8c42);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0f7f4;
+            color: #059669;
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-top: 24px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: var(--text-gray);
+            margin-top: 32px;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--text-dark);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 32px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+            padding-bottom: 80px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            transition: box-shadow 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+
+        /* Experience List */
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .experience-item {
+            display: flex;
+            gap: 16px;
+        }
+
+        .timeline-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .experience-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .experience-meta {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* Publications */
+        .publication {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .publication:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .publication h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .publication h3 a {
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .publication h3 a:hover {
+            color: var(--primary-color);
+        }
+
+        .publication-meta {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-top: 8px;
+        }
+
+        .publication-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Projects */
+        .project-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .project-item {
+            padding: 20px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .project-item:hover {
+            transform: translateX(4px);
+            background: #f0f0f0;
+        }
+
+        .project-item h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .project-item p {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* Image placeholder */
+        .image-placeholder {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1, .hero .role, .hero .institution {
+                font-size: 36px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 40px 0 30px;
+            }
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        /* Dog Buddy */
+        .dog-buddy {
+            position: fixed;
+            width: 80px;
+            height: 80px;
+            z-index: 1000;
+            cursor: pointer;
+            transition: left 0.8s ease-out, top 0.8s ease-out, transform 0.3s;
+            pointer-events: all;
+        }
+
+        .dog-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Dog SVG */
+        .dog-svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        /* Speech Bubble */
+        .speech-bubble {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: white;
+            border: 2px solid var(--text-dark);
+            border-radius: 16px;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s, transform 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid var(--text-dark);
+        }
+
+        .speech-bubble.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-20px);
+        }
+
+        /* Dog animations */
+        @keyframes wag-tail {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .dog-buddy:hover {
+            transform: scale(1.1);
+        }
+
+        .dog-buddy.excited {
+            animation: bounce 0.5s ease-in-out 3;
+        }
+
+        /* Hide on small screens */
+        @media (max-width: 768px) {
+            .dog-buddy {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dog Buddy -->
+    <div class="dog-buddy" id="dogBuddy">
+        <div class="dog-container">
+            <div class="speech-bubble" id="speechBubble">Woof! 🐕</div>
+            <svg class="dog-svg" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+                <!-- Husky body - dark gray/black with fluff -->
+                <ellipse cx="60" cy="48" rx="30" ry="20" fill="#3a3a3a"/>
+                <ellipse cx="60" cy="46" rx="28" ry="18" fill="#4a4a4a" opacity="0.6"/>
+                
+                <!-- Chest - white/light tan -->
+                <ellipse cx="50" cy="52" rx="14" ry="16" fill="#e8dcc8"/>
+                <path d="M 44 45 Q 50 38 56 45" fill="#f5f0e8"/>
+                
+                <!-- Legs - tan/brown (4 legs visible) -->
+                <rect x="45" y="60" width="7" height="16" rx="3.5" fill="#c4955c"/>
+                <rect x="68" y="60" width="7" height="16" rx="3.5" fill="#c4955c"/>
+                <rect x="50" y="62" width="7" height="16" rx="3.5" fill="#d4a66a"/>
+                <rect x="63" y="62" width="7" height="16" rx="3.5" fill="#d4a66a"/>
+                
+                <!-- Paws - darker -->
+                <ellipse cx="48.5" cy="75" rx="4" ry="2.5" fill="#8b6f47"/>
+                <ellipse cx="71.5" cy="75" rx="4" ry="2.5" fill="#8b6f47"/>
+                <ellipse cx="53.5" cy="77" rx="4" ry="2.5" fill="#8b6f47"/>
+                <ellipse cx="66.5" cy="77" rx="4" ry="2.5" fill="#8b6f47"/>
+                
+                <!-- Head - dark with white/tan markings -->
+                <ellipse cx="40" cy="36" rx="15" ry="16" fill="#3a3a3a"/>
+                
+                <!-- Face mask - white/tan -->
+                <ellipse cx="38" cy="40" rx="10" ry="12" fill="#e8dcc8"/>
+                
+                <!-- Snout - tan -->
+                <ellipse cx="32" cy="42" rx="8" ry="7" fill="#c4955c"/>
+                
+                <!-- Nose -->
+                <ellipse cx="30" cy="44" rx="3" ry="2.5" fill="#1a1a1a"/>
+                
+                <!-- Husky ears - tall and pointed -->
+                <g>
+                    <!-- Left ear -->
+                    <path d="M 34 22 L 28 12 L 32 24 Z" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="1"/>
+                    <path d="M 34 22 L 30 16 L 32 22 Z" fill="#4a4a4a"/>
+                    
+                    <!-- Right ear -->
+                    <path d="M 44 22 L 50 12 L 46 24 Z" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="1"/>
+                    <path d="M 44 22 L 48 16 L 46 22 Z" fill="#4a4a4a"/>
+                </g>
+                
+                <!-- Eye markings - distinctive husky mask -->
+                <ellipse cx="32" cy="34" rx="4" ry="5" fill="#2a2a2a"/>
+                <ellipse cx="44" cy="34" rx="4" ry="5" fill="#2a2a2a"/>
+                
+                <!-- Eyes - bright blue for husky look -->
+                <ellipse cx="32" cy="35" rx="2.5" ry="3" fill="#4a90e2"/>
+                <ellipse cx="44" cy="35" rx="2.5" ry="3" fill="#4a90e2"/>
+                <circle cx="33" cy="34" r="1" fill="white"/>
+                <circle cx="45" cy="34" r="1" fill="white"/>
+                
+                <!-- Eyebrows - give character -->
+                <path d="M 28 32 Q 32 30 36 32" stroke="#2a2a2a" stroke-width="1" fill="none" stroke-linecap="round"/>
+                <path d="M 40 32 Q 44 30 48 32" stroke="#2a2a2a" stroke-width="1" fill="none" stroke-linecap="round"/>
+                
+                <!-- Mouth/smile -->
+                <path d="M 30 46 Q 28 48 26 47" stroke="#2a2a2a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <path d="M 30 46 Q 32 48 34 47" stroke="#2a2a2a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                
+                <!-- Husky tail - curled over back, fluffy -->
+                <g id="tail" transform-origin="85 42" style="animation: wag-tail 0.5s ease-in-out infinite;">
+                    <!-- Fluffy tail -->
+                    <ellipse cx="86" cy="38" rx="10" ry="14" fill="#3a3a3a" transform="rotate(-40 86 38)"/>
+                    <ellipse cx="88" cy="36" rx="8" ry="12" fill="#4a4a4a" transform="rotate(-40 88 36)"/>
+                    <ellipse cx="90" cy="34" rx="6" ry="10" fill="#5a5a5a" transform="rotate(-45 90 34)"/>
+                    <!-- Tail tip - tan -->
+                    <ellipse cx="92" cy="30" rx="4" ry="6" fill="#d4a66a" transform="rotate(-50 92 30)"/>
+                </g>
+                
+                <!-- Collar -->
+                <ellipse cx="48" cy="46" rx="12" ry="3" fill="#e74c3c"/>
+                <circle cx="46" cy="46" r="2" fill="#ffd700"/>
+                
+                <!-- Fur texture details -->
+                <path d="M 52 50 Q 54 48 56 50" stroke="#5a5a5a" stroke-width="0.5" fill="none" opacity="0.5"/>
+                <path d="M 58 52 Q 60 50 62 52" stroke="#5a5a5a" stroke-width="0.5" fill="none" opacity="0.5"/>
+            </svg>
+        </div>
+    </div>
+
+    <script>
+        const dog = document.getElementById('dogBuddy');
+        const speechBubble = document.getElementById('speechBubble');
+        
+        const messages = [
+            "Woof!",
+            "Hi there!",
+            "Love this research! ",
+            "Great work! ",
+            "Keep scrolling! ",
+            "Interesting! ",
+            "Click me! ",
+            "*tail wagging* "
+        ];
+        
+        let currentSection = '';
+        let messageTimeout;
+        
+        // Initial position
+        dog.style.left = '50px';
+        dog.style.top = '50px';
+        
+        // Show message
+        function showMessage(text) {
+            speechBubble.textContent = text;
+            speechBubble.classList.add('show');
+            
+            clearTimeout(messageTimeout);
+            messageTimeout = setTimeout(() => {
+                speechBubble.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Random message on click
+        dog.addEventListener('click', () => {
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            showMessage(randomMsg);
+            dog.classList.add('excited');
+            setTimeout(() => dog.classList.remove('excited'), 1500);
+        });
+        
+        // Follow scroll and move to sections
+        let lastScrollPos = 0;
+        let targetX = 50;
+        let targetY = 50;
+        
+        function updateDogPosition() {
+            const scrollPos = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            
+            // Calculate position based on scroll
+            const scrollPercent = scrollPos / (docHeight - windowHeight);
+            
+            // Move dog along the right side
+            targetX = window.innerWidth - 150;
+            targetY = 80 + (scrollPercent * (windowHeight - 200));
+            
+            // Keep within bounds
+            targetY = Math.max(80, Math.min(targetY, windowHeight - 100));
+            
+            dog.style.left = targetX + 'px';
+            dog.style.top = targetY + 'px';
+            
+            // Detect which section we're in
+            const sections = document.querySelectorAll('.card, .hero');
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight / 2 && rect.bottom > windowHeight / 2) {
+                    const sectionTitle = section.querySelector('.card-title, h1');
+                    if (sectionTitle) {
+                        const text = sectionTitle.textContent.trim();
+                        if (text !== currentSection) {
+                            currentSection = text;
+                            
+                            // Show contextual messages
+                            if (text.includes('Publications')) {
+                                showMessage('Great papers! ');
+                            } else if (text.includes('Experience')) {
+                                showMessage('Impressive! ');
+                            } else if (text.includes('Projects')) {
+                                showMessage('Cool tools! ');
+                            } else if (text.includes('Denielle')) {
+                                showMessage('Hi! I\'m your buddy ');
+                            }
+                        }
+                    }
+                }
+            });
+            
+            lastScrollPos = scrollPos;
+        }
+        
+        // Smooth scroll following
+        let animationFrame;
+        function smoothFollow() {
+            updateDogPosition();
+            animationFrame = requestAnimationFrame(smoothFollow);
+        }
+        
+        window.addEventListener('scroll', () => {
+            if (!animationFrame) {
+                smoothFollow();
+            }
+        });
+        
+        // Initial greeting
+        setTimeout(() => {
+            showMessage("Hi! I'm your buddy");
+        }, 1000);
+        
+        // Periodic random actions
+        setInterval(() => {
+            if (Math.random() < 0.3 && !speechBubble.classList.contains('show')) {
+                const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+                showMessage(randomMsg);
+            }
+        }, 15000);
+        
+        // Start following
+        smoothFollow();
+    </script>
+    <!-- Header -->
     <header>
-      <h1>denielle oliva</h1>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">D</div>
+                <a href="mailto:denielle@nevada.unr.edu" class="contact-email">denielle@nevada.unr.edu</a>
+                <button class="menu-button">☰</button>
+            </div>
+        </div>
     </header>
-    <!-- Button to open the "Publications" pane -->
-    <div class="pane-button-container publications-button">
-      <button
-        class="pane-button"
-        onclick="togglePane('publications-pane')"
-      ></button>
-      <span class="pane-button-label">Publications</span>
-    </div>
-    <!-- Pane for "Publications" -->
-    <div
-      id="publications-pane"
-      class="pane"
-      style="left: calc(50vw - 400px); top: calc(50vh - 280px); display: none; width: 800px; height: 600px;"
-    >
-      <div class="title">
-        <h2>Publications</h2>
-        <!-- Exit button -->
-        <button class="exit-button" onclick="closePane('publications-pane')"></button>
-      </div>
-      <div class="content">
-        <div class="publication">
-          <a href="https://arxiv.org/abs/2504.08117" target="_blank">
-            <strong>Design Activity for Robot Faces: Evaluating Child Responses to Expressive Faces</strong>
-          </a>
-          <p class="abstract">
-            This paper explores how children respond to expressive robot faces through a design activity.
-          </p>
-          <a href="/pdfs/robot-faces.pdf" target="_blank">[PDF]</a>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <!-- Add your profile image here -->
+                <!-- <img src="your-photo.jpg" alt="Denielle Oliva" class="profile-image"> -->
+                
+                <h1>
+                    <span class="name">Hi, I'm Denielle Oliva!</span><br>
+                    <span class="role">I'm a </span>
+                    <span class="institution">PhD Candidate</span>
+                    <span class="role"> at</span><br>
+                    <span class="institution">University of Nevada, Reno.</span>
+                </h1>
+
+                <div class="status-badge">
+                    <span class="status-dot"></span>
+                    Open to opportunities
+                </div>
+
+                <p class="hero-description">
+                    Feel free to explore my research and reach out—I'd love to connect! 
+                    I focus on human-robot interaction and socially assistive robotics for speech-language pathology.
+                </p>
+
+                <a href="mailto:denielle@nevada.unr.edu" class="cta-button">Get in touch</a>
+            </div>
         </div>
-        <div class="publication">
-          <a href="https://arxiv.org/abs/2504.16055" target="_blank">
-            <strong>SAR4SLPs: An Asynchronous Survey of Speech-Language Pathologists' Perspectives on Socially Assistive Robots</strong>
-          </a>
-          <p class="abstract">
-            This study surveys speech-language pathologists to understand their perspectives on socially assistive robots.
-          </p>
-          <a href="/pdfs/sar4slps.pdf" target="_blank">[PDF]</a>
+    </section>
+
+    <!-- Content Grid -->
+    <div class="container">
+        <div class="content-grid">
+            <!-- Research Experience -->
+            <div class="card">
+                <div class="card-title">Research Experience</div>
+                <div class="experience-list">
+                    <div class="experience-item">
+                        <div class="timeline-dot"></div>
+                        <div class="experience-content">
+                            <h3>PhD Candidate - Human-Robot Interaction</h3>
+                            <p class="experience-meta">University of Nevada, Reno<br>2020 - Present</p>
+                        </div>
+                    </div>
+                    <div class="experience-item">
+                        <div class="timeline-dot"></div>
+                        <div class="experience-content">
+                            <h3>Research Assistant - Socially Assistive Robotics</h3>
+                            <p class="experience-meta">UNR Robotics Lab<br>2019 - 2020</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Publications -->
+            <div class="card">
+                <div class="card-title">Recent Publications</div>
+                <div class="publication">
+                    <h3>
+                        <a href="https://arxiv.org/abs/2504.08117" target="_blank">
+                            Design Activity for Robot Faces: Evaluating Child Responses to Expressive Faces
+                        </a>
+                    </h3>
+                    <p class="publication-meta">HRI 2025</p>
+                    <a href="/pdfs/robot-faces.pdf" class="publication-link" target="_blank">View PDF →</a>
+                </div>
+                <div class="publication">
+                    <h3>
+                        <a href="https://arxiv.org/abs/2504.16055" target="_blank">
+                            SAR4SLPs: An Asynchronous Survey of Speech-Language Pathologists
+                        </a>
+                    </h3>
+                    <p class="publication-meta">HRI 2025</p>
+                    <a href="/pdfs/sar4slps.pdf" class="publication-link" target="_blank">View PDF →</a>
+                </div>
+            </div>
+
+            <!-- Projects -->
+            <div class="card">
+                <div class="card-title">Projects & Tools</div>
+                <div class="project-grid">
+                    <div class="project-item" onclick="window.location.href='https://denielleoliva.github.io/fcp_unr'">
+                        <h3>Face Rigging Studio</h3>
+                        <p>Interactive tool for creating animated robot faces with text-to-speech</p>
+                    </div>
+                    <div class="project-item">
+                        <h3>Blossom Robot Platform</h3>
+                        <p>Customizable expressive robot for therapeutic applications</p>
+                    </div>
+                    <div class="project-item">
+                        <h3>Co-Design Framework</h3>
+                        <p>Evidence-based design principles for SAR in clinical settings</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="corner"></div>
-    </div>
-    <!-- Button to open the "Skills" pane -->
-    <div class="pane-button-container skills-button">
-      <button
-        class="pane-button"
-        onclick="togglePane('skills-pane')"
-      ></button>
-      <span class="pane-button-label">Skills</span>
-    </div>
-    <!-- Pane for "Skills" -->
-    <div
-      id="skills-pane"
-      class="pane"
-      style="left: calc(50vw - 400px); top: calc(50vh - 280px); display: none; width: 800px; height: 600px;"
-    >
-      <div class="title">
-        <h2>Skills</h2>
-        <!-- Exit button -->
-        <button class="exit-button" onclick="closePane('skills-pane')">X</button>
-      </div>
-      <div class="content">
-        <ul>
-          <li>Programming Languages: Python, JavaScript, C++</li>
-          <li>Data Analysis: Pandas, NumPy</li>
-          <li>Robotics and Automated Systems: ROS, ROS2, Manipulators, Mobile Robots</li>
-          <li>Web Development: HTML, CSS, React</li>
-          <li>Machine Learning: TensorFlow, PyTorch</li>
-          <li>Version Control: Git, GitHub</li>
-        </ul>
-      </div>
-      <div class="corner"></div>
     </div>
 
-    <!-- Button to open the "Face Rigging Studio" pane -->
-    <div class="pane-button-container studio-button">
-      <button
-        class="pane-button"
-        onclick="togglePane('studio-pane')"
-      ></button>
-      <span class="pane-button-label">Face Rigging Studio</span>
-    </div>
-    <!-- Pane for "Face Rigging Studio" -->
-    <div
-      id="studio-pane"
-      class="pane"
-      style="left: calc(50vw - 400px); top: calc(50vh - 280px); display: none; width: 800px; height: 600px;"
-    >
-      <div class="title">
-        <h2>Face Rigging Studio</h2>
-        <!-- Exit button -->
-        <button class="exit-button" onclick="closePane('studio-pane')">X</button>
-      </div>
-      <div class="content">
-        <p>Draw, rig, and animate faces with text-to-speech for socially assistive robotics research.</p>
-        <a href="https://denielleoliva.github.io/fcp_unr" target="_blank" class="studio-link">
-          <button class="launch-button">Launch Studio →</button>
-        </a>
-        <div style="margin-top: 20px;">
-          <h3>Features:</h3>
-          <ul>
-            <li>Vector drawing tools with customizable brush styles</li>
-            <li>26 detailed facial control points for precise rigging</li>
-            <li>Automatic landmark detection</li>
-            <li>Text-to-speech animation with mouth, eye, and eyebrow movement</li>
-            <li>Export animations as standalone HTML files</li>
-          </ul>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Denielle Oliva. Built with care for human-robot interaction research.</p>
         </div>
-      </div>
-      <div class="corner"></div>
-    </div>
-
-    <div class="bottom-bar">
-      <button class="menu-button" onclick="toggleMenu()">Start</button>
-      <div id="menu" class="menu" style="display: none;">
-        <ul>
-          <li onclick="togglePane('publications-pane')">Publications</li>
-          <li onclick="togglePane('skills-pane')">Skills</li>
-          <li onclick="togglePane('studio-pane')">Face Rigging Studio</li>
-        </ul>
-      </div>
-      <div id="clock" class="clock"></div>
-    </div>
-    <script src="panes.js"></script>
-  </body>
+    </footer>
+</body>
 </html>
