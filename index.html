@@ -305,18 +305,155 @@
             color: var(--text-gray);
         }
 
-        /* Image placeholder */
-        .image-placeholder {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #667eea20, #764ba220);
-            border-radius: 12px;
-            display: flex;
+        /* Contact Form Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
             align-items: center;
             justify-content: center;
-            color: var(--primary-color);
-            font-weight: 600;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .contact-modal {
+            background: white;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 32px 32px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--text-gray);
+            padding: 4px 8px;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: var(--text-dark);
+        }
+
+        .modal-body {
+            padding: 32px;
+        }
+
+        .form-group {
             margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-message {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .form-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .form-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         /* Responsive */
@@ -342,306 +479,41 @@
             color: var(--text-gray);
             font-size: 14px;
         }
-
-        /* Dog Buddy */
-        .dog-buddy {
-            position: fixed;
-            width: 80px;
-            height: 80px;
-            z-index: 1000;
-            cursor: pointer;
-            transition: left 0.8s ease-out, top 0.8s ease-out, transform 0.3s;
-            pointer-events: all;
-        }
-
-        .dog-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Dog SVG */
-        .dog-svg {
-            width: 100%;
-            height: 100%;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-        }
-
-        /* Speech Bubble */
-        .speech-bubble {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-10px);
-            background: white;
-            border: 2px solid var(--text-dark);
-            border-radius: 16px;
-            padding: 12px 16px;
-            font-size: 14px;
-            font-weight: 500;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s, transform 0.3s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-
-        .speech-bubble::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 8px solid var(--text-dark);
-        }
-
-        .speech-bubble.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(-20px);
-        }
-
-        /* Dog animations */
-        @keyframes wag-tail {
-            0%, 100% { transform: rotate(-10deg); }
-            50% { transform: rotate(10deg); }
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .dog-buddy:hover {
-            transform: scale(1.1);
-        }
-
-        .dog-buddy.excited {
-            animation: bounce 0.5s ease-in-out 3;
-        }
-
-        /* Hide on small screens */
-        @media (max-width: 768px) {
-            .dog-buddy {
-                width: 60px;
-                height: 60px;
-            }
-        }
     </style>
 </head>
 <body>
-    <!-- Dog Buddy -->
-    <div class="dog-buddy" id="dogBuddy">
-        <div class="dog-container">
-            <div class="speech-bubble" id="speechBubble">Woof! 🐕</div>
-            <svg class="dog-svg" viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
-                <!-- Husky body - dark gray/black with fluff -->
-                <ellipse cx="60" cy="48" rx="30" ry="20" fill="#3a3a3a"/>
-                <ellipse cx="60" cy="46" rx="28" ry="18" fill="#4a4a4a" opacity="0.6"/>
-                
-                <!-- Chest - white/light tan -->
-                <ellipse cx="50" cy="52" rx="14" ry="16" fill="#e8dcc8"/>
-                <path d="M 44 45 Q 50 38 56 45" fill="#f5f0e8"/>
-                
-                <!-- Legs - tan/brown (4 legs visible) -->
-                <rect x="45" y="60" width="7" height="16" rx="3.5" fill="#c4955c"/>
-                <rect x="68" y="60" width="7" height="16" rx="3.5" fill="#c4955c"/>
-                <rect x="50" y="62" width="7" height="16" rx="3.5" fill="#d4a66a"/>
-                <rect x="63" y="62" width="7" height="16" rx="3.5" fill="#d4a66a"/>
-                
-                <!-- Paws - darker -->
-                <ellipse cx="48.5" cy="75" rx="4" ry="2.5" fill="#8b6f47"/>
-                <ellipse cx="71.5" cy="75" rx="4" ry="2.5" fill="#8b6f47"/>
-                <ellipse cx="53.5" cy="77" rx="4" ry="2.5" fill="#8b6f47"/>
-                <ellipse cx="66.5" cy="77" rx="4" ry="2.5" fill="#8b6f47"/>
-                
-                <!-- Head - dark with white/tan markings -->
-                <ellipse cx="40" cy="36" rx="15" ry="16" fill="#3a3a3a"/>
-                
-                <!-- Face mask - white/tan -->
-                <ellipse cx="38" cy="40" rx="10" ry="12" fill="#e8dcc8"/>
-                
-                <!-- Snout - tan -->
-                <ellipse cx="32" cy="42" rx="8" ry="7" fill="#c4955c"/>
-                
-                <!-- Nose -->
-                <ellipse cx="30" cy="44" rx="3" ry="2.5" fill="#1a1a1a"/>
-                
-                <!-- Husky ears - tall and pointed -->
-                <g>
-                    <!-- Left ear -->
-                    <path d="M 34 22 L 28 12 L 32 24 Z" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="1"/>
-                    <path d="M 34 22 L 30 16 L 32 22 Z" fill="#4a4a4a"/>
-                    
-                    <!-- Right ear -->
-                    <path d="M 44 22 L 50 12 L 46 24 Z" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="1"/>
-                    <path d="M 44 22 L 48 16 L 46 22 Z" fill="#4a4a4a"/>
-                </g>
-                
-                <!-- Eye markings - distinctive husky mask -->
-                <ellipse cx="32" cy="34" rx="4" ry="5" fill="#2a2a2a"/>
-                <ellipse cx="44" cy="34" rx="4" ry="5" fill="#2a2a2a"/>
-                
-                <!-- Eyes - bright blue for husky look -->
-                <ellipse cx="32" cy="35" rx="2.5" ry="3" fill="#4a90e2"/>
-                <ellipse cx="44" cy="35" rx="2.5" ry="3" fill="#4a90e2"/>
-                <circle cx="33" cy="34" r="1" fill="white"/>
-                <circle cx="45" cy="34" r="1" fill="white"/>
-                
-                <!-- Eyebrows - give character -->
-                <path d="M 28 32 Q 32 30 36 32" stroke="#2a2a2a" stroke-width="1" fill="none" stroke-linecap="round"/>
-                <path d="M 40 32 Q 44 30 48 32" stroke="#2a2a2a" stroke-width="1" fill="none" stroke-linecap="round"/>
-                
-                <!-- Mouth/smile -->
-                <path d="M 30 46 Q 28 48 26 47" stroke="#2a2a2a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                <path d="M 30 46 Q 32 48 34 47" stroke="#2a2a2a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-                
-                <!-- Husky tail - curled over back, fluffy -->
-                <g id="tail" transform-origin="85 42" style="animation: wag-tail 0.5s ease-in-out infinite;">
-                    <!-- Fluffy tail -->
-                    <ellipse cx="86" cy="38" rx="10" ry="14" fill="#3a3a3a" transform="rotate(-40 86 38)"/>
-                    <ellipse cx="88" cy="36" rx="8" ry="12" fill="#4a4a4a" transform="rotate(-40 88 36)"/>
-                    <ellipse cx="90" cy="34" rx="6" ry="10" fill="#5a5a5a" transform="rotate(-45 90 34)"/>
-                    <!-- Tail tip - tan -->
-                    <ellipse cx="92" cy="30" rx="4" ry="6" fill="#d4a66a" transform="rotate(-50 92 30)"/>
-                </g>
-                
-                <!-- Collar -->
-                <ellipse cx="48" cy="46" rx="12" ry="3" fill="#e74c3c"/>
-                <circle cx="46" cy="46" r="2" fill="#ffd700"/>
-                
-                <!-- Fur texture details -->
-                <path d="M 52 50 Q 54 48 56 50" stroke="#5a5a5a" stroke-width="0.5" fill="none" opacity="0.5"/>
-                <path d="M 58 52 Q 60 50 62 52" stroke="#5a5a5a" stroke-width="0.5" fill="none" opacity="0.5"/>
-            </svg>
+    <!-- Contact Form Modal -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="contact-modal">
+            <div class="modal-header">
+                <h2>Get in Touch</h2>
+                <button class="close-modal" onclick="closeContactForm()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <input type="text" id="subject" name="subject" required placeholder="What's this about?">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required placeholder="Tell me more..."></textarea>
+                    </div>
+                    <button type="submit" class="form-submit" id="submitBtn">Send Message</button>
+                    <div id="formMessage" class="form-message" style="display: none;"></div>
+                </form>
+            </div>
         </div>
     </div>
 
-    <script>
-        const dog = document.getElementById('dogBuddy');
-        const speechBubble = document.getElementById('speechBubble');
-        
-        const messages = [
-            "Woof!",
-            "Hi there!",
-            "Love this research! ",
-            "Great work! ",
-            "Keep scrolling! ",
-            "Interesting! ",
-            "Click me! ",
-            "*tail wagging* "
-        ];
-        
-        let currentSection = '';
-        let messageTimeout;
-        
-        // Initial position
-        dog.style.left = '50px';
-        dog.style.top = '50px';
-        
-        // Show message
-        function showMessage(text) {
-            speechBubble.textContent = text;
-            speechBubble.classList.add('show');
-            
-            clearTimeout(messageTimeout);
-            messageTimeout = setTimeout(() => {
-                speechBubble.classList.remove('show');
-            }, 3000);
-        }
-        
-        // Random message on click
-        dog.addEventListener('click', () => {
-            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-            showMessage(randomMsg);
-            dog.classList.add('excited');
-            setTimeout(() => dog.classList.remove('excited'), 1500);
-        });
-        
-        // Follow scroll and move to sections
-        let lastScrollPos = 0;
-        let targetX = 50;
-        let targetY = 50;
-        
-        function updateDogPosition() {
-            const scrollPos = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const docHeight = document.documentElement.scrollHeight;
-            
-            // Calculate position based on scroll
-            const scrollPercent = scrollPos / (docHeight - windowHeight);
-            
-            // Move dog along the right side
-            targetX = window.innerWidth - 150;
-            targetY = 80 + (scrollPercent * (windowHeight - 200));
-            
-            // Keep within bounds
-            targetY = Math.max(80, Math.min(targetY, windowHeight - 100));
-            
-            dog.style.left = targetX + 'px';
-            dog.style.top = targetY + 'px';
-            
-            // Detect which section we're in
-            const sections = document.querySelectorAll('.card, .hero');
-            sections.forEach(section => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top < windowHeight / 2 && rect.bottom > windowHeight / 2) {
-                    const sectionTitle = section.querySelector('.card-title, h1');
-                    if (sectionTitle) {
-                        const text = sectionTitle.textContent.trim();
-                        if (text !== currentSection) {
-                            currentSection = text;
-                            
-                            // Show contextual messages
-                            if (text.includes('Publications')) {
-                                showMessage('Great papers! ');
-                            } else if (text.includes('Experience')) {
-                                showMessage('Impressive! ');
-                            } else if (text.includes('Projects')) {
-                                showMessage('Cool tools! ');
-                            } else if (text.includes('Denielle')) {
-                                showMessage('Hi! I\'m your buddy ');
-                            }
-                        }
-                    }
-                }
-            });
-            
-            lastScrollPos = scrollPos;
-        }
-        
-        // Smooth scroll following
-        let animationFrame;
-        function smoothFollow() {
-            updateDogPosition();
-            animationFrame = requestAnimationFrame(smoothFollow);
-        }
-        
-        window.addEventListener('scroll', () => {
-            if (!animationFrame) {
-                smoothFollow();
-            }
-        });
-        
-        // Initial greeting
-        setTimeout(() => {
-            showMessage("Hi! I'm your buddy");
-        }, 1000);
-        
-        // Periodic random actions
-        setInterval(() => {
-            if (Math.random() < 0.3 && !speechBubble.classList.contains('show')) {
-                const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-                showMessage(randomMsg);
-            }
-        }, 15000);
-        
-        // Start following
-        smoothFollow();
-    </script>
     <!-- Header -->
     <header>
         <div class="container">
@@ -678,8 +550,7 @@
                     I focus on human-robot interaction and socially assistive robotics for speech-language pathology.
                 </p>
 
-                <a href="mailto:denielle@nevada.unr.edu" class="cta-button">Get in touch</a>
-                
+                <a href="#" onclick="openContactForm(); return false;" class="cta-button">Get in touch</a>
             </div>
         </div>
     </section>
@@ -735,7 +606,7 @@
             <div class="card">
                 <div class="card-title">Projects & Tools</div>
                 <div class="project-grid">
-                    <div class="project-item" onclick="window.location.href='https://denielleoliva.github.io/fcp_unr'">
+                    <div class="project-item" onclick="window.location.href='https://YOUR_USERNAME.github.io/face-rigging-studio'">
                         <h3>Face Rigging Studio</h3>
                         <p>Interactive tool for creating animated robot faces with text-to-speech</p>
                     </div>
@@ -758,5 +629,66 @@
             <p>© 2026 Denielle Oliva. Built with care for human-robot interaction research.</p>
         </div>
     </footer>
+
+    <script>
+        // Contact Form Functions
+        function openContactForm() {
+            document.getElementById('contactModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeContactForm() {
+            document.getElementById('contactModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            // Reset form
+            document.getElementById('contactForm').reset();
+            document.getElementById('formMessage').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('contactModal').addEventListener('click', (e) => {
+            if (e.target.id === 'contactModal') {
+                closeContactForm();
+            }
+        });
+
+        // Handle form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const formMessage = document.getElementById('formMessage');
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            // Simulate sending (replace with your actual email service)
+            setTimeout(() => {
+                // Show success message
+                formMessage.className = 'form-message success';
+                formMessage.textContent = 'Message sent successfully! I\'ll get back to you soon.';
+                formMessage.style.display = 'block';
+                
+                // Reset form
+                document.getElementById('contactForm').reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+                
+                // Close modal after 2 seconds
+                setTimeout(() => {
+                    closeContactForm();
+                }, 2000);
+            }, 1500);
+        }
+    </script>
 </body>
 </html>
