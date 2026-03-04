@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dissertation Progress — Denielle Oliva</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --accent-color: #FF6B35;
+            --text-dark: #1a1a1a;
+            --text-gray: #666;
+            --bg-light: #f8f9fa;
+            --border-color: #e0e0e0;
+            --val-expert: #667eea;
+            --val-pilot: #059669;
+            --val-tech: #FF6B35;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: white;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* Header */
+        header { padding: 24px 0; border-bottom: 1px solid var(--border-color); }
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo {
+            width: 48px; height: 48px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 12px; display: flex; align-items: center;
+            justify-content: center; color: white;
+            font-weight: 800; font-size: 24px; text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 24px; align-items: center; }
+        .nav-links a {
+            color: var(--text-gray); text-decoration: none;
+            font-size: 14px; font-weight: 500;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text-dark); }
+        .nav-links a.active { color: var(--primary-color); }
+
+        /* Page Hero */
+        .page-hero { padding: 60px 0 40px; }
+        .page-hero h1 {
+            font-size: 42px; font-weight: 800; line-height: 1.1; margin-bottom: 12px;
+        }
+        .page-hero h1 span {
+            background: linear-gradient(135deg, var(--accent-color), #ff8c42);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .page-hero p { font-size: 16px; color: var(--text-gray); max-width: 600px; }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 16px; margin: 40px 0;
+        }
+        .stat-card {
+            background: var(--bg-light); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 24px; text-align: center;
+        }
+        .stat-num {
+            font-size: 36px; font-weight: 800; color: var(--primary-color);
+            display: block; line-height: 1;
+        }
+        .stat-label {
+            font-size: 12px; font-weight: 600; color: var(--text-gray);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            margin-top: 6px; display: block;
+        }
+
+        /* Progress Bar */
+        .progress-wrap { margin-bottom: 40px; }
+        .progress-label {
+            display: flex; justify-content: space-between;
+            font-size: 13px; font-weight: 600; color: var(--text-gray);
+            margin-bottom: 8px;
+        }
+        .progress-track {
+            height: 8px; background: var(--bg-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 8px; transition: width 0.4s ease;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex; gap: 24px; flex-wrap: wrap;
+            margin-bottom: 40px; padding: 16px 20px;
+            background: var(--bg-light); border: 1px solid var(--border-color);
+            border-radius: 12px;
+        }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--text-gray); }
+        .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+        /* Phase */
+        .phase { margin-bottom: 48px; }
+        .phase-header {
+            display: flex; align-items: center; gap: 16px;
+            margin-bottom: 16px; padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .phase-num {
+            font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; color: white;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 4px 10px; border-radius: 6px;
+        }
+        .phase-title { font-size: 18px; font-weight: 700; color: var(--text-dark); }
+        .phase-timeline {
+            margin-left: auto; font-size: 12px; font-weight: 500;
+            color: var(--text-gray);
+            background: var(--bg-light); border: 1px solid var(--border-color);
+            padding: 4px 10px; border-radius: 6px;
+        }
+
+        /* Tasks */
+        .tasks { display: flex; flex-direction: column; gap: 6px; }
+
+        .task {
+            display: grid; grid-template-columns: 36px 1fr auto;
+            align-items: start; gap: 12px;
+            padding: 16px; background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px; cursor: pointer;
+            transition: box-shadow 0.2s, border-color 0.2s, background 0.15s;
+        }
+        .task:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+            border-color: #ccc;
+        }
+        .task.done { background: var(--bg-light); }
+        .task.done .task-label {
+            text-decoration: line-through; color: var(--text-gray);
+        }
+        .task.val-expert { border-left: 3px solid var(--val-expert); }
+        .task.val-pilot  { border-left: 3px solid var(--val-pilot); }
+        .task.val-tech   { border-left: 3px solid var(--val-tech); }
+
+        .checkbox {
+            width: 22px; height: 22px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px; display: flex;
+            align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 1px;
+            transition: all 0.15s;
+        }
+        .task.done .checkbox {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-color: var(--primary-color);
+        }
+        .checkmark { display: none; color: white; font-size: 13px; font-weight: 700; }
+        .task.done .checkmark { display: block; }
+
+        .task-label { font-size: 14px; font-weight: 500; color: var(--text-dark); line-height: 1.5; }
+        .task-note { font-size: 12px; color: var(--text-gray); margin-top: 3px; line-height: 1.5; }
+
+        .val-badge {
+            font-size: 10px; font-weight: 700; letter-spacing: 0.06em;
+            text-transform: uppercase; padding: 4px 10px;
+            border-radius: 6px; white-space: nowrap;
+            flex-shrink: 0; margin-top: 2px;
+        }
+        .val-expert .val-badge { background: rgba(102,126,234,0.1); color: var(--val-expert); }
+        .val-pilot  .val-badge { background: rgba(5,150,105,0.1);  color: var(--val-pilot); }
+        .val-tech   .val-badge { background: rgba(255,107,53,0.1);  color: var(--val-tech); }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 40px 0; text-align: center;
+            color: var(--text-gray); font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .page-hero h1 { font-size: 28px; }
+            .phase-header { flex-wrap: wrap; }
+            .phase-timeline { margin-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">D</a>
+                <nav class="nav-links" style="display:flex">
+                    <a href="index.html">Home</a>
+                    <a href="dissertation.html" class="active">Dissertation</a>
+                    <a href="mailto:denielle@nevada.unr.edu">Contact</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Dissertation <span>Progress</span></h1>
+            <p>Co-Designing Expressive Socially Assistive Robots for Speech-Language Pathology · UNR CSE · Advisor: Dr. David Feil-Seifer</p>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <!-- Stats -->
+        <div class="stats-row" id="stats-row">
+            <div class="stat-card"><span class="stat-num" id="stat-done">0</span><span class="stat-label">Completed</span></div>
+            <div class="stat-card"><span class="stat-num" id="stat-remaining">0</span><span class="stat-label">Remaining</span></div>
+            <div class="stat-card"><span class="stat-num" id="stat-checkpoints">0</span><span class="stat-label">Validations Left</span></div>
+            <div class="stat-card"><span class="stat-num" id="stat-pct">0%</span><span class="stat-label">Progress</span></div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-wrap">
+            <div class="progress-label">
+                <span>Overall Progress</span>
+                <span id="pct-label">0%</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+            </div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--val-expert)"></div> Expert / Clinician Review</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--val-pilot)"></div> Pilot Testing with Children</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--val-tech)"></div> Technical System Validation</div>
+        </div>
+
+        <!-- Phases injected by JS -->
+        <div id="phases-container"></div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Denielle Oliva. Built with care for human-robot interaction research.</p>
+        </div>
+    </footer>
+
+<script>
+const PHASES = [
+  {
+    num: "Phase 01", title: "Theoretical Framing & Writing", timeline: "Current",
+    tasks: [
+      { label: "Introduce therapy multiplier construct in Chapter 1 intro", note: "Positive + boundary claims stated before limitations review", done: true },
+      { label: "Revise §1.1.1 — replace researcher examples with ARC participant responses", note: "Grounds robot clinical role in co-design data, not researcher reasoning", done: true },
+      { label: "Write §1.1.7 — therapy multiplier as clinician-derived deployment theory", note: "Includes Social Stories selection rationale and construct boundary claims", done: true },
+      { label: "Finalize dissertation proposal draft for committee review", note: "All chapters coherent with therapy multiplier framing throughout", done: false },
+      { label: "Submit proposal to committee ahead of defense", note: "", done: false },
+    ],
+  },
+  {
+    num: "Phase 02", title: "ARC Study (Chapter 3) — Complete", timeline: "Done",
+    tasks: [
+      { label: "Conduct 4-week ARC co-design study with 13 licensed SLPs", note: "", done: true },
+      { label: "Thematic analysis — derive five evidence-based design principles", note: "", done: true },
+      { label: "Publish ARC findings in Frontiers in Robotics and AI", note: "Oliva et al., 2025 — published", done: true },
+    ],
+  },
+  {
+    num: "Phase 03", title: "Face Personalization Study (Chapter 4)", timeline: "In Progress",
+    tasks: [
+      { label: "Design activity — child-drawn expressive robot faces for Blossom", note: "", done: true },
+      { label: "Submit paper to IEEE RO-MAN 2025", note: "Oliva et al. — accepted", done: true },
+      { label: "✦ Validate child preference data — personalized vs. default faces", note: "Confirm personalization benefit before integrating into clinical pipeline", done: false, val: "pilot" },
+      { label: "Integrate child-drawn face pipeline into Blossom platform", note: "Drawing → landmark detection → animation via k-NN classifier + TensorFlow.js", done: false },
+    ],
+  },
+  {
+    num: "Phase 04", title: "Blossom Platform Implementation (Chapter 5)", timeline: "Months 1–8",
+    tasks: [
+      { label: "Complete hardware + core software integration", note: "Digital face display, motor calibration, Azure TTS + GPT-4 gesture sync", done: false },
+      { label: "✦ Technical validation — expression rendering and system latency", note: "Verify face-body-audio coordination timing meets clinical usability threshold", done: false, val: "tech" },
+      { label: "✦ SLP usability testing — control interface and session workflow", note: "5–6 clinicians; cognitive interviews on comprehension and real-time control", done: false, val: "expert" },
+      { label: "Refine platform based on SLP usability feedback", note: "", done: false },
+      { label: "✦ Validate therapy multiplier operationalization in §5.5", note: "Confirm platform architecture enforces SLP override authority at all phases", done: false, val: "tech" },
+    ],
+  },
+  {
+    num: "Phase 05", title: "Modular Activity Framework (Chapter 6)", timeline: "Months 1–15",
+    tasks: [
+      { label: "Develop eight-component activity template", note: "Literature review + ARC synthesis + Blossom specs + clinical consultation", done: false },
+      { label: "Develop three exemplar activities at full template depth", note: "Articulation (direct mapping), Turn-Taking (enhancement), Social Stories (hybrid)", done: false },
+      { label: "✦ Interdisciplinary expert panel review — template + exemplars", note: "8–10 licensed professionals (SLPs, OTs, psychologists, special educators)", done: false, val: "expert" },
+      { label: "Revise framework to v2.0 based on expert panel feedback", note: "", done: false },
+      { label: "✦ Build activity library system — database, tagging, customization interface", note: "Automated data collection; searchable by domain, population, evidence base", done: false, val: "tech" },
+      { label: "✦ Pilot study — 4–5 clinicians, 2 children each (N=8–10), 6–8 sessions", note: "Session logs, interviews, engagement video coding, performance + generalization probes", done: false, val: "pilot" },
+      { label: "✦ Analyze pilot data — quantitative usability + qualitative thematic", note: "Confirm therapy multiplier gains: trial density, feedback consistency, session data quality", done: false, val: "pilot" },
+      { label: "Finalize framework to v3.0 incorporating pilot findings", note: "", done: false },
+      { label: "Write §6.6 conclusion — restate therapy multiplier in precise integrating form", note: "", done: false },
+    ],
+  },
+  {
+    num: "Phase 06", title: "Dissemination & Defense", timeline: "Months 12–15",
+    tasks: [
+      { label: "Present at HRI 2026 Pioneers Workshop — Edinburgh", note: "March 16–19, 2026 · Child-customizable digital faces / latency framing", done: true },
+      { label: "Submit framework conceptual paper", note: "Target: ACM THRI or International Journal of Social Robotics", done: false },
+      { label: "Submit empirical validation manuscript", note: "Target: American Journal of Speech-Language Pathology", done: false },
+      { label: "Open-source release — GitHub repo + companion website", note: "Activity library, Blossom platform code, training materials, support forum", done: false },
+      { label: "Dissertation defense", note: "", done: false },
+    ],
+  },
+];
+
+const VAL_LABELS = { expert: "Expert Review", pilot: "Pilot · Children", tech: "Tech Validation" };
+
+function render() {
+  const container = document.getElementById("phases-container");
+  container.innerHTML = PHASES.map((phase, pi) => `
+    <div class="phase">
+      <div class="phase-header">
+        <span class="phase-num">${phase.num}</span>
+        <span class="phase-title">${phase.title}</span>
+        <span class="phase-timeline">${phase.timeline}</span>
+      </div>
+      <div class="tasks">
+        ${phase.tasks.map((task, ti) => `
+          <div class="task ${task.done ? "done" : ""} ${task.val ? "val-" + task.val : ""}"
+               onclick="toggle(${pi}, ${ti})">
+            <div class="checkbox"><span class="checkmark">✓</span></div>
+            <div>
+              <div class="task-label">${task.label}</div>
+              ${task.note ? `<div class="task-note">${task.note}</div>` : ""}
+            </div>
+            <div>${task.val ? `<span class="val-badge">${VAL_LABELS[task.val]}</span>` : ""}</div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+  `).join("");
+  updateStats();
+}
+
+function toggle(pi, ti) {
+  PHASES[pi].tasks[ti].done = !PHASES[pi].tasks[ti].done;
+  render();
+}
+
+function updateStats() {
+  const all = PHASES.flatMap(p => p.tasks);
+  const done = all.filter(t => t.done);
+  const checkpoints = all.filter(t => t.val && !t.done);
+  const pct = Math.round((done.length / all.length) * 100);
+  document.getElementById("stat-done").textContent = done.length;
+  document.getElementById("stat-remaining").textContent = all.length - done.length;
+  document.getElementById("stat-checkpoints").textContent = checkpoints.length;
+  document.getElementById("stat-pct").textContent = pct + "%";
+  document.getElementById("pct-label").textContent = pct + "%";
+  document.getElementById("progress-fill").style.width = pct + "%";
+}
+
+render();
+</script>
+</body>
+</html>
