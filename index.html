@@ -520,10 +520,34 @@
             <div class="header-content">
                 <div class="logo">D</div>
                 <a href="mailto:denielle@nevada.unr.edu" class="contact-email">denielle@nevada.unr.edu</a>
-                <nav style="display:flex; align-items:center; gap:16px;">
-                    <a href="dissertation.html" style="color:#666; text-decoration:none; font-size:14px; font-weight:500; transition:color 0.2s;" onmouseover="this.style.color='#667eea'" onmouseout="this.style.color='#666'">Dissertation</a>
-                    <button class="menu-button">☰</button>
-                </nav>
+                <div style="position:relative;">
+                    <button class="menu-button" onclick="toggleMenu()">☰</button>
+                    <div id="hamburger-menu" style="
+                        display:none;
+                        position:absolute;
+                        right:0;
+                        top:calc(100% + 8px);
+                        background:white;
+                        border:1px solid #e0e0e0;
+                        border-radius:12px;
+                        box-shadow:0 8px 24px rgba(0,0,0,0.1);
+                        min-width:180px;
+                        overflow:hidden;
+                        z-index:1000;
+                    ">
+                        <a href="dissertation.html" style="
+                            display:block;
+                            padding:14px 20px;
+                            font-size:14px;
+                            font-weight:500;
+                            color:#1a1a1a;
+                            text-decoration:none;
+                            transition:background 0.15s;
+                        " onmouseover="this.style.background='#f8f9fa'" onmouseout="this.style.background='white'">
+                            📋 Dissertation Progress
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
@@ -692,6 +716,20 @@
                 }, 2000);
             }, 1500);
         }
+
+        function toggleMenu() {
+            const menu = document.getElementById('hamburger-menu');
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('hamburger-menu');
+            if (!e.target.closest('.menu-button') && !e.target.closest('#hamburger-menu')) {
+                menu.style.display = 'none';
+            }
+        });
+
     </script>
 </body>
 </html>
